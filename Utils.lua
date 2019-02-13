@@ -1,7 +1,8 @@
 local Utils = {}
 
 function Utils.isCallable(f)
-    return type(f)=="function" or getmetatable(f).__call
+	local metatable = getmetatable(f)
+    return type(f)=="function" or (metatable and metatable.__call)
 end
 
 function Utils.shuffleTable(t)
