@@ -1,5 +1,9 @@
 local Utils = {}
 
+function Utils.isCallable(f)
+    return type(f)=="function" or getmetatable(f).__call
+end
+
 function Utils.shuffleTable(t)
 	for i=1,#t do
 		local j = math.random(i, #t)
