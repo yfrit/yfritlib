@@ -1,0 +1,17 @@
+Last time
+	Nested listeners
+	Criar Git do Utils
+
+Eventer
+	[ ] Receber nested listeners no construtor
+	[ ] Request
+    [ ] Respond
+    	[ ] Método
+    	[ ] Receber no construtor
+    [ ] Unlisten
+
+Event
+	[ ] Remove empty tables when listeners are removed
+
+Utils
+	[ ] Mover Class.lua para cá
