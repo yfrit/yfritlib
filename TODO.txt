@@ -1,11 +1,8 @@
 Last time
-	Mover Class para Utils
-	Event.request
-    Event.respond
+	Mover TestUtils para Utils
+	Nested listeners attribute
 
 Eventer
-	[ ] Receber nested listeners no construtor
-	[ ] Receber responders no construtor
     [ ] Unlisten
 
 Event
