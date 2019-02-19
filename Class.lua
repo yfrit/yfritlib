@@ -9,7 +9,14 @@ function Class.new(class, constructor, parent)
             self = {}
             setmetatable(self, class)
         end
-        self = constructor(self, ...) or self
+
+        --call parent constructor
+        if parent then
+            parent.new(self, ...)
+        end
+
+        --call class constructor
+        constructor(self, ...)
         return self
     end
 
