@@ -2,12 +2,6 @@ Last time
 	Mover TestUtils para Utils
 	Nested listeners attribute
 
-AID
-	[ ] Criar parent de Controller e View
-		[ ] Nome: talvez ModelInteractor
-		[ ] Child de Eventer
-		[ ] Recebe um model no construtor
-
 Eventer
     [ ] Unlisten event/request
 
