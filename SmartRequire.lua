@@ -4,6 +4,7 @@ function _G.require(path, current)
     --if received current, use it to modify the path
     if current then
         --replace everything in current after the last "." with path
+        --e.g. ("Event", "EventSystem.Eventer") => "EventSystem.Event"
         path = current:reverse():gsub(".-%.", path:reverse() .. ".", 1):reverse()
     end
 
@@ -13,6 +14,7 @@ function _G.require(path, current)
         return module
     else
         --if failed, replace the first "." with ".src."
+        --e.g. "EventSystem.Event => "EventSystem.src.Event"
         return oldRequire(path:gsub("%.", ".src.", 1))
     end
 end
