@@ -16,8 +16,8 @@ function _G.magicMock()
     return mock
 end
 
-function _G.mockRequire(path)
-    local mock = magicMock()
+function _G.mockRequire(path, mock)
+    mock = mock or magicMock()
     package.loaded[path] = mock
     return mock
 end
