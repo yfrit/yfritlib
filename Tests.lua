@@ -1,4 +1,5 @@
 function _G.magicMock()
+    local __return
     local mock =
         setmetatable(
         {},
@@ -9,10 +10,16 @@ function _G.magicMock()
                 return newMock
             end,
             __call = function()
+                if __return ~= nil then
+                    return __return
+                end
                 return magicMock()
             end
         }
     )
+    function mock.__return(ret)
+        __return = ret
+    end
     return mock
 end
 
