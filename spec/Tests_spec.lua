@@ -38,7 +38,6 @@ insulate(
         it(
             "#should return correctly when setup with __with and __return",
             function()
-                print()
                 mock.method.__with(1, 2).__return("potato")
 
                 assert.are_equal(mock.method(1, 2), "potato")
