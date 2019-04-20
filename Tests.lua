@@ -1,7 +1,27 @@
+local Utils = require("Utils.Utils")
+
 function _G.magicMock()
     local __return
     local __returnWith
+    local cachedTables = {}
 
+    local function getSimilarParameter(param)
+        --if it is not a table, just return
+        if type(param) ~= "table" then
+            return param
+        end
+
+        --otherwise, check if there is a cached table that is recursively equal to param
+        for _, cachedTable in ipairs(cachedTables) do
+            if Utils.areEqual(param, cachedTable) then
+                return cachedTable
+            end
+        end
+
+        --if there was not, add param to cachedTables, then return
+        table.insert(cachedTables, param)
+        return param
+    end
     local function setReturns(params, returns)
         if not __returnWith then
             __returnWith = {}
@@ -10,11 +30,11 @@ function _G.magicMock()
         local amount = #params
         local indexes = {amount, unpack(params)}
         for i = 1, #indexes - 1 do
-            local index = indexes[i]
+            local index = getSimilarParameter(indexes[i])
             target[index] = target[index] or {}
             target = target[index]
         end
-        local lastIndex = indexes[#indexes]
+        local lastIndex = getSimilarParameter(indexes[#indexes])
         target[lastIndex] = returns
     end
     local function getReturns(params)
@@ -25,7 +45,7 @@ function _G.magicMock()
             if not target then
                 return
             end
-            target = target[index]
+            target = target[getSimilarParameter(index)]
         end
         return target
     end

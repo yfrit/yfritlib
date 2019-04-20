@@ -36,12 +36,52 @@ insulate(
             end
         )
         it(
-            "#should return correctly when setup with __with and __return",
+            "should return correctly when setup with __with and __return",
             function()
                 mock.method.__with(1, 2).__return("potato")
 
                 assert.are_equal(mock.method(1, 2), "potato")
                 assert.are_not_equal(mock.method(), "potato")
+            end
+        )
+        it(
+            "identical tables are considered the same parameter",
+            function()
+                assert.are_equal(
+                    mock.method(
+                        {
+                            apple = true,
+                            orange = 3
+                        }
+                    ),
+                    mock.method(
+                        {
+                            apple = true,
+                            orange = 3
+                        }
+                    )
+                )
+            end
+        )
+        it(
+            "identical tables are considered the same parameter in __with",
+            function()
+                mock.method.__with(
+                    {
+                        apple = true,
+                        orange = 3
+                    }
+                ).__return("potato")
+
+                assert.are_equal(
+                    mock.method(
+                        {
+                            apple = true,
+                            orange = 3
+                        }
+                    ),
+                    "potato"
+                )
             end
         )
     end
