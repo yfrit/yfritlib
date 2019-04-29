@@ -74,4 +74,66 @@ function Utils.areEqual(object1, object2)
 	return true
 end
 
+function permutations(t, min, max)
+	min = min or #t
+	max = max or min
+	local k = min
+
+	local result = {0}
+	for i = 2, #t do
+		result[i] = 1
+	end
+	return function()
+		repeat
+			local index = 1
+			repeat
+				--increment index
+				result[index] = result[index] + 1
+
+				--if reached ceil, reset and increment next
+				local reachedCeil = false
+				if result[index] > #t then
+					reachedCeil = true
+					result[index] = 1
+					index = index + 1
+
+					--if reached last index, go to next k and reset
+					if index > k then
+						k = k + 1
+						local result = {0}
+						for i = 2, #t do
+							result[i] = 1
+						end
+						index = 1
+
+						--if reached last k, finish permutations
+						if k > max then
+							return
+						end
+					end
+				end
+			until not reachedCeil
+
+			--check if doesn't repeat values
+			local usedValues = {}
+			local hasRepeats = false
+			for i = 1, k do
+				local v = result[i]
+				if usedValues[v] then
+					hasRepeats = true
+					break
+				end
+				usedValues[v] = true
+			end
+		until not hasRepeats
+
+		--form result with actual values
+		local realResult = {}
+		for i = 1, k do
+			realResult[i] = t[result[i]]
+		end
+		return realResult
+	end
+end
+
 return Utils

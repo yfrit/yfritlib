@@ -13,8 +13,15 @@ function _G.require(path, current)
     if ok then
         return module
     else
+        local errorMessage = module
+
         --if failed, replace the first "." with ".src."
         --e.g. "EventSystem.Event => "EventSystem.src.Event"
-        return oldRequire(path:gsub("%.", ".src.", 1))
+        ok, module = pcall(oldRequire, path:gsub("%.", ".src.", 1))
+        if ok then
+            return module
+        else
+            error(errorMessage)
+        end
     end
 end
