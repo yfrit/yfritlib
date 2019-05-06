@@ -75,8 +75,8 @@ function Utils.areEqual(object1, object2)
 end
 
 function permutations(t, min, max)
-	min = min or #t
-	max = max or min
+	min = math.min(min or #t, #t)
+	max = math.min(max or min, #t)
 	local k = min
 
 	local result = {0}
