@@ -25,6 +25,9 @@ function Class.new(class, constructor, parent)
         setmetatable(class, parent)
     end
 
+    --add class attribute
+    class.class = class
+
     return class
 end
 
