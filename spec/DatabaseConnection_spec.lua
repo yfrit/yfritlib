@@ -6,6 +6,29 @@ insulate(
         local DatabaseConnection
         setup(
             function()
+                local function brasilIterator()
+                    local i = 0
+                    return function()
+                        i = i + 1
+                        if i == 1 then
+                            return {
+                                nation_name = "Brasil"
+                            }
+                        end
+                        return nil
+                    end
+                end
+
+                local database = {}
+                stub(database, "nrows")
+                database.nrows.on_call_with(database, "select * from NATION where nation_name='Brasil'").returns(
+                    brasilIterator()
+                )
+
+                local sqlite3 = {}
+                mockRequire("lsqlite3complete", sqlite3)
+                stub(sqlite3, "open", database)
+
                 DatabaseConnection = require("DatabaseConnection")
             end
         )
