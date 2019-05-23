@@ -27,7 +27,8 @@ insulate(
 
                 local sqlite3 = {}
                 mockRequire("lsqlite3complete", sqlite3)
-                stub(sqlite3, "open", database)
+                stub(sqlite3, "open")
+                sqlite3.open.on_call_with("database.db").returns(database)
 
                 DatabaseConnection = require("DatabaseConnection")
             end
@@ -35,7 +36,7 @@ insulate(
         it(
             "query returns a table with resulting rows",
             function()
-                local connection = DatabaseConnection:new()
+                local connection = DatabaseConnection:new("database.db")
 
                 local rows = connection:query("select * from NATION where nation_name='%s'", "Brasil")
 

@@ -4,8 +4,8 @@ local sqlite3 = require("lsqlite3complete")
 local DatabaseConnection =
     Class.new(
     {},
-    function(self)
-        self.database = sqlite3.open("database.db")
+    function(self, path)
+        self.database = sqlite3.open(path)
     end
 )
 
