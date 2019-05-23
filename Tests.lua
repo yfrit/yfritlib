@@ -1,4 +1,4 @@
-local Utils = require("Utils.Utils")
+local Utils = require("Utils")
 
 function _G.magicMock()
     local __return
