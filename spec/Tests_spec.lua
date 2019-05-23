@@ -4,7 +4,7 @@ insulate(
         local mock
         setup(
             function()
-                require("Utils.Tests")
+                require("Tests")
             end
         )
         before_each(
