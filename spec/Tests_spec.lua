@@ -1,3 +1,5 @@
+require("LocalRockInit")
+
 insulate(
     "#magicMock",
     function()

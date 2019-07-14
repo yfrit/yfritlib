@@ -15,7 +15,6 @@ build = {
    type = "builtin",
    modules = {
       ["YfritLib.Class"] = "Class.lua",
-      ["YfritLib.DatabaseConnection"] = "DatabaseConnection.lua",
       ["YfritLib.Tests"] = "Tests.lua",
       ["YfritLib.Utils"] = "Utils.lua",
    }
