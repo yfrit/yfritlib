@@ -1,4 +1,4 @@
-local Utils = require("Utils")
+local Utils = require("YfritLib.Utils")
 
 function _G.magicMock()
     local __return
