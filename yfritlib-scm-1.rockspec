@@ -8,8 +8,7 @@ description = {
    license = "MIT <http://opensource.org/licenses/MIT>"
 }
 dependencies = {
-   "lua ~> 5.1",
-   "lsqlite3complete >= 0.9.5-1"
+   "lua ~> 5.1"
 }
 build = {
    type = "builtin",
