@@ -136,4 +136,12 @@ function permutations(t, min, max)
 	end
 end
 
+function Utils.executeAsCoroutine(f)
+	local cor = coroutine.create(f)
+	local ok, errorMessage = coroutine.resume(cor)
+	if not ok then
+		error(debug.traceback(cor, errorMessage), 2)
+	end
+end
+
 return Utils
