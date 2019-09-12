@@ -31,4 +31,8 @@ function Class.new(class, constructor, parent)
     return class
 end
 
+function Class.isInstanceOf(object, class)
+    return type(object) == "table" and object.class == class
+end
+
 return Class
