@@ -1,6 +1,8 @@
 local Class = {}
 
-function Class.new(class, constructor, parent)
+function Class.new(class, constructor, ...)
+    local parents = {...}
+
     --object metatable
     class.__index = class
     class.new = function(self, ...)
@@ -10,8 +12,8 @@ function Class.new(class, constructor, parent)
             setmetatable(self, class)
         end
 
-        --call parent constructor
-        if parent then
+        --call parents constructors
+        for _, parent in ipairs(parents) do
             parent.new(self, ...)
         end
 
@@ -21,8 +23,25 @@ function Class.new(class, constructor, parent)
     end
 
     --set parent class
-    if parent then
-        setmetatable(class, parent)
+    if #parents == 1 then
+        --single inheritance, set metatable directly for efficiency
+        setmetatable(class, parents[1])
+    elseif #parents > 1 then
+        --multiple inheritance, make special treatment for metatable
+        setmetatable(
+            class,
+            {
+                __index = function(_, key)
+                    --find first parent that has the key, and return its value
+                    for _, parent in ipairs(parents) do
+                        local value = parent[key]
+                        if value then
+                            return value
+                        end
+                    end
+                end
+            }
+        )
     end
 
     --add class attribute
