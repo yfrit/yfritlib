@@ -142,6 +142,7 @@ function Utils.executeAsCoroutine(f)
 	if not ok then
 		error(debug.traceback(cor, errorMessage), 2)
 	end
+	return cor
 end
 
 return Utils
