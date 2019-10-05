@@ -15,9 +15,9 @@ function CallbackList:insert(callback)
 	table.insert(self.callbacks, callback)
 end
 
-function CallbackList:execute()
+function CallbackList:execute(...)
 	for _, callback in ipairs(self.callbacks) do
-		callback()
+		callback(...)
 	end
 end
 
