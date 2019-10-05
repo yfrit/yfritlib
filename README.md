@@ -1,2 +1,2 @@
-# Utils
-General functions used in many of my projects
+# YfritLib
+Useful libs used in Yfrit projects.
