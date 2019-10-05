@@ -12,6 +12,14 @@ function Utils.shuffleTable(t)
 	end
 end
 
+function Utils.shallowCopy(t)
+	local tCopy = {}
+	for i, v in pairs(t) do
+		tCopy[i] = v
+	end
+	return tCopy
+end
+
 local function tostring2(elem)
 	if type(elem) == "string" then
 		return "'" .. elem .. "'"
