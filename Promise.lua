@@ -2,22 +2,21 @@
 Promises can be used to wait for a result that may or may not be ready yet (i.e. asynchronous things).
 --]]
 local Class = require("YfritLib.Class")
+local CallbackList = require("YfritLib.CallbackList")
 
 local Promise =
 	Class.new(
 	{},
 	function(self)
 		self.isCompleted = false
-		self.callbacks = {}
+		self.callbackList = CallbackList:new()
 	end
 )
 
 function Promise:complete(...)
 	self.isCompleted = true
 	self.parameters = {...}
-	for _, callback in ipairs(self.callbacks) do
-		callback(...)
-	end
+	self.callbackList:execute(...)
 end
 
 function Promise:onComplete(callback)
@@ -26,7 +25,7 @@ function Promise:onComplete(callback)
 		callback(unpack(self.parameters))
 	else
 		--otherwise, save to execute lates
-		table.insert(self.callbacks, callback)
+		self.callbackList:insert(callback)
 	end
 end
 
