@@ -16,6 +16,10 @@ function CallbackList:insert(callback, ...)
 	self.callbacks[callback] = {...}
 end
 
+function CallbackList:remove(callback)
+	self.callbacks[callback] = nil
+end
+
 function CallbackList:execute(...)
 	for callback, insertParams in pairs(self.callbacks) do
 		-- concatanate paramaters received on insert with parameters received on execute

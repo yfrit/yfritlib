@@ -45,5 +45,18 @@ insulate(
 				assert.stub(callback).was_called_with(1, 2, 3, 4)
 			end
 		)
+		it(
+			"remove ThenExecute RemovedCallbackIsNotExecuted",
+			function()
+				local list = CallbackList:new()
+				local callback = stub.new()
+				list:insert(callback)
+
+				list:remove(callback)
+				list:execute()
+
+				assert.stub(callback).was_not_called()
+			end
+		)
 	end
 )
