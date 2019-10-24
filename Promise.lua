@@ -3,6 +3,7 @@ Promises can be used to wait for a result that may or may not be ready yet (i.e.
 --]]
 local Class = require("YfritLib.Class")
 local CallbackList = require("YfritLib.CallbackList")
+local Utils = require("YfritLib.Utils")
 
 local Promise =
 	Class.new(
@@ -35,7 +36,7 @@ function Promise:await()
 		local co = coroutine.running()
 		self:onComplete(
 			function()
-				coroutine.resume(co)
+				Utils.resumeCoroutine(co)
 			end
 		)
 		coroutine.yield()

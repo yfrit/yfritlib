@@ -146,11 +146,15 @@ end
 
 function Utils.executeAsCoroutine(f)
 	local cor = coroutine.create(f)
+	Utils.resumeCoroutine(cor)
+	return cor
+end
+
+function Utils.resumeCoroutine(cor)
 	local ok, errorMessage = coroutine.resume(cor)
 	if not ok then
 		error(debug.traceback(cor, errorMessage), 2)
 	end
-	return cor
 end
 
 return Utils
