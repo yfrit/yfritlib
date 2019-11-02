@@ -18,5 +18,6 @@ build = {
       ["YfritLib.Utils"] = "Utils.lua",
       ["YfritLib.CallbackList"] = "CallbackList.lua",
       ["YfritLib.Promise"] = "Promise.lua",
+      ["YfritLib.ParameterValidator"] = "ParameterValidator.lua",
    }
 }
