@@ -13,10 +13,12 @@ local CallbackList =
 )
 
 function CallbackList:insert(callback, ...)
+	assert(Utils.isCallable(callback), "Callback must be a function.")
 	self.callbacks[callback] = {...}
 end
 
 function CallbackList:remove(callback)
+	assert(Utils.isCallable(callback), "Callback must be a function.")
 	self.callbacks[callback] = nil
 end
 
