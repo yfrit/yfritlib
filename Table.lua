@@ -16,4 +16,13 @@ function Table.append(t1, t2)
 	return newTable
 end
 
+-- TODO write tests for this
+function Table.shallowCopy(t)
+	local tCopy = {}
+	for i, v in pairs(t) do
+		tCopy[i] = v
+	end
+	return tCopy
+end
+
 return Table
