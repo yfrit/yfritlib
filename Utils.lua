@@ -1,3 +1,5 @@
+local Table = require("YfritLib.Table")
+
 local Utils = {}
 
 function Utils.isCallable(f)
@@ -12,13 +14,8 @@ function Utils.shuffleTable(t)
 	end
 end
 
-function Utils.shallowCopy(t)
-	local tCopy = {}
-	for i, v in pairs(t) do
-		tCopy[i] = v
-	end
-	return tCopy
-end
+-- TODO remove usages of deprecated Utils.shallowCopy
+Utils.shallowCopy = Table.shallowCopy
 
 local function tostring2(elem)
 	if type(elem) == "string" then

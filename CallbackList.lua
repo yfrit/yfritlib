@@ -3,6 +3,7 @@ Implements a list, where callbacks can be inserted and executed.
 --]]
 local Class = require("YfritLib.Class")
 local Utils = require("YfritLib.Utils")
+local Table = require("YfritLib.Table")
 
 local CallbackList =
 	Class.new(
@@ -23,9 +24,12 @@ function CallbackList:remove(callback)
 end
 
 function CallbackList:execute(...)
-	for callback, insertParams in pairs(self.callbacks) do
+	-- copy callback list to another table, to guarentee it won't be modified during the iterations
+	local callbacks = Table.shallowCopy(self.callbacks)
+
+	for callback, insertParams in pairs(callbacks) do
 		-- concatanate paramaters received on insert with parameters received on execute
-		local allParams = Utils.shallowCopy(insertParams)
+		local allParams = Table.shallowCopy(insertParams)
 		for _, executeParam in ipairs({...}) do
 			table.insert(allParams, executeParam)
 		end
