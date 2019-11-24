@@ -51,7 +51,12 @@ function Class.new(class, constructor, ...)
 end
 
 function Class.isInstanceOf(object, class)
-    return type(object) == "table" and object.class == class
+    local objectType = type(object)
+    if objectType == class then
+        return true
+    elseif objectType == "table" then
+        return object.class == class
+    end
 end
 
 return Class
