@@ -57,8 +57,8 @@ insulate(
                 local t2 =
                     Table.map(
                     t,
-                    function(key, value)
-                        return key + value
+                    function(value, key)
+                        return value + key
                     end
                 )
 
