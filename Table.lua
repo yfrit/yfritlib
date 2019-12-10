@@ -39,7 +39,7 @@ function Table.map(t, callback)
     local newTable = {}
 
     for key, value in pairs(t) do
-        newTable[key] = callback(key, value)
+        newTable[key] = callback(value, key)
     end
 
     return newTable
