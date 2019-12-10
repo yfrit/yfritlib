@@ -35,4 +35,14 @@ function Table.reduce(t, callback)
     return total
 end
 
+function Table.map(t, callback)
+    local newTable = {}
+
+    for key, value in pairs(t) do
+        newTable[key] = callback(key, value)
+    end
+
+    return newTable
+end
+
 return Table

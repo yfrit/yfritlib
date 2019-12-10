@@ -49,5 +49,21 @@ insulate(
                 assert.are_equal(2 * 3 * 4, multiplication)
             end
         )
+        it(
+            "map TableAndFunction ReturnsTableWithMappedValues",
+            function()
+                local t = {5, 10, 15}
+
+                local t2 =
+                    Table.map(
+                    t,
+                    function(key, value)
+                        return key + value
+                    end
+                )
+
+                assert.are_same({1 + 5, 2 + 10, 3 + 15}, t2)
+            end
+        )
     end
 )
