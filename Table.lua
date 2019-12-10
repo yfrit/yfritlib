@@ -45,4 +45,14 @@ function Table.map(t, callback)
     return newTable
 end
 
+function Table.toSet(t)
+    local set = {}
+
+    for _, value in pairs(t) do
+        set[value] = true
+    end
+
+    return set
+end
+
 return Table

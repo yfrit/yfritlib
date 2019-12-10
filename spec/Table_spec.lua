@@ -65,5 +65,22 @@ insulate(
                 assert.are_same({1 + 5, 2 + 10, 3 + 15}, t2)
             end
         )
+        it(
+            "toSet Table ConvertToSet",
+            function()
+                local t = {"potato", "banana", "apple"}
+
+                local set = Table.toSet(t)
+
+                assert.are_same(
+                    {
+                        potato = true,
+                        banana = true,
+                        apple = true
+                    },
+                    set
+                )
+            end
+        )
     end
 )
