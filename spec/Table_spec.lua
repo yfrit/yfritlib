@@ -9,6 +9,16 @@ insulate(
                 Table = require("Table")
             end
         )
+        before_each(
+            function()
+                stub(math, "random")
+            end
+        )
+        after_each(
+            function()
+                math.random:revert()
+            end
+        )
         it(
             "append TwoTables ReturnsANewTable",
             function()
@@ -80,6 +90,28 @@ insulate(
                     },
                     set
                 )
+            end
+        )
+        it(
+            "random RandomReturns1 ReturnsFirstElement",
+            function()
+                local t = {"first", "second"}
+                math.random.returns(1)
+
+                local element = Table.random(t)
+
+                assert.is_equal(element, "first")
+            end
+        )
+        it(
+            "random RandomReturns2 ReturnsSecondElement",
+            function()
+                local t = {"first", "second"}
+                math.random.returns(2)
+
+                local element = Table.random(t)
+
+                assert.is_equal(element, "second")
             end
         )
     end

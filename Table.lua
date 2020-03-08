@@ -55,4 +55,9 @@ function Table.toSet(t)
     return set
 end
 
+function Table.random(t)
+    local randomIndex = math.random(1, #t)
+    return t[randomIndex]
+end
+
 return Table
