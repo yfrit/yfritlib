@@ -12,11 +12,3 @@ If your project is a Git project, run this inside its folder:
 If it is not a Git project, run this instead:
 
 `git clone https://github.com/yfrit/yfritlib.git`
-
-
-Alternatively, to install through LuaRocks, you can try the following:
-```
-git clone https://github.com/yfrit/yfritlib.git
-cd yfritlib
-luarocks make
-```
