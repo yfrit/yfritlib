@@ -3,6 +3,8 @@
 --]]
 local Table = {}
 
+_G.unpack = _G.unpack or table.unpack
+
 function Table.append(t1, t2)
     local newTable = {}
 
