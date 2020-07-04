@@ -120,7 +120,18 @@ insulate(
         )
 
         it(
-            "generateSets Array ReturnsArrayWithAllPossibleSets",
+            "generateSets EmptyArray ReturnsArrayWithSingleEmptyTable",
+            function()
+                local elements = {}
+
+                local sets = Table.generateSets(elements)
+
+                assert.are_equal(1, #sets)
+                assert.are_same({}, sets[1])
+            end
+        )
+        it(
+            "generateSets NonEmptyArray ReturnsArrayWithAllPossibleSets",
             function()
                 local elements = {"a", "b", "c"}
 
