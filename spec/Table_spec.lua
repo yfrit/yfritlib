@@ -158,5 +158,54 @@ insulate(
                 assert.are_same({"a", "b", "c"}, elements)
             end
         )
+
+        it(
+            "generatePermutations EmptyArray ReturnsArrayWithSinglePermutation",
+            function()
+                local elements = {}
+
+                local permutations = Table.generatePermutations(elements)
+
+                assert.are_equal(1, #permutations)
+                assert.are_same({}, permutations[1])
+            end
+        )
+        it(
+            "generatePermutations ArrayWithSingleElement ReturnsArrayWithSinglePermutation",
+            function()
+                local elements = {"a"}
+
+                local permutations = Table.generatePermutations(elements)
+
+                assert.are_equal(1, #permutations)
+                assert.are_same({"a"}, permutations[1])
+            end
+        )
+        it(
+            "generatePermutations ArrayWithMultipleElements ReturnsArrayWithAllPermutations",
+            function()
+                local elements = {"a", "b", "c"}
+
+                local permutations = Table.generatePermutations(elements)
+
+                assert.are_equal(6, #permutations)
+                assert.are_same({"a", "b", "c"}, permutations[1])
+                assert.are_same({"b", "a", "c"}, permutations[2])
+                assert.are_same({"c", "b", "a"}, permutations[3])
+                assert.are_same({"a", "c", "b"}, permutations[4])
+                assert.are_same({"c", "a", "b"}, permutations[5])
+                assert.are_same({"b", "c", "a"}, permutations[6])
+            end
+        )
+        it(
+            "generateSets NonEmptyArray DoesNotMofifyTheOriginalArray",
+            function()
+                local elements = {"a", "b", "c"}
+
+                Table.generatePermutations(elements)
+
+                assert.are_same({"a", "b", "c"}, elements)
+            end
+        )
     end
 )
