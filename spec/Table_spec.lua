@@ -43,6 +43,7 @@ insulate(
                 assert.are_same(expectedTable, t3)
             end
         )
+
         it(
             "reduce TableAndFunction ReducesTableToSingleValue",
             function()
@@ -59,6 +60,7 @@ insulate(
                 assert.are_equal(2 * 3 * 4, multiplication)
             end
         )
+
         it(
             "map TableAndFunction ReturnsTableWithMappedValues",
             function()
@@ -75,6 +77,7 @@ insulate(
                 assert.are_same({1 + 5, 2 + 10, 3 + 15}, t2)
             end
         )
+
         it(
             "toSet Table ConvertToSet",
             function()
@@ -92,6 +95,7 @@ insulate(
                 )
             end
         )
+
         it(
             "random RandomReturns1 ReturnsFirstElement",
             function()
@@ -112,6 +116,25 @@ insulate(
                 local element = Table.random(t)
 
                 assert.is_equal(element, "second")
+            end
+        )
+
+        it(
+            "generateSets Array ReturnsArrayWithAllPossibleSets",
+            function()
+                local elements = {"a", "b", "c"}
+
+                local sets = Table.generateSets(elements)
+
+                assert.are_equal(2 ^ 3, #sets)
+                assert.are_same({}, sets[1])
+                assert.are_same({a = true}, sets[2])
+                assert.are_same({b = true}, sets[3])
+                assert.are_same({a = true, b = true}, sets[4])
+                assert.are_same({c = true}, sets[5])
+                assert.are_same({a = true, c = true}, sets[6])
+                assert.are_same({b = true, c = true}, sets[7])
+                assert.are_same({a = true, b = true, c = true}, sets[8])
             end
         )
     end

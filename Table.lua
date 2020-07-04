@@ -62,4 +62,30 @@ function Table.random(t)
     return t[randomIndex]
 end
 
+function Table.generateSets(elements)
+    if #elements == 0 then
+        -- array with the empty set
+        return {
+            {}
+        }
+    end
+
+    -- generate subsets without last element
+    local lastElement = elements[#elements]
+    elements[#elements] = nil
+    local setsWithoutElement = Table.generateSets(elements)
+    local allSets = Table.shallowCopy(setsWithoutElement)
+
+    -- duplicate sets, but with last element this time
+    for _, setWithoutElement in ipairs(setsWithoutElement) do
+        local setWithElement = Table.shallowCopy(setWithoutElement)
+        setWithElement[lastElement] = true
+
+        -- add new set to allSets
+        allSets[#allSets + 1] = setWithElement
+    end
+
+    return allSets
+end
+
 return Table
