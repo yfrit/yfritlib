@@ -148,5 +148,15 @@ insulate(
                 assert.are_same({a = true, b = true, c = true}, sets[8])
             end
         )
+        it(
+            "generateSets NonEmptyArray DoesNotMofifyTheOriginalArray",
+            function()
+                local elements = {"a", "b", "c"}
+
+                Table.generateSets(elements)
+
+                assert.are_same({"a", "b", "c"}, elements)
+            end
+        )
     end
 )

@@ -85,6 +85,9 @@ function Table.generateSets(elements)
         allSets[#allSets + 1] = setWithElement
     end
 
+    -- restone element to original array
+    elements[#elements + 1] = lastElement
+
     return allSets
 end
 
