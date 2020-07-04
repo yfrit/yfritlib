@@ -62,4 +62,73 @@ function Table.random(t)
     return t[randomIndex]
 end
 
+function Table.generateSets(elements)
+    if #elements == 0 then
+        -- array with the empty set
+        return {
+            {}
+        }
+    end
+
+    -- generate subsets without last element
+    local lastElement = elements[#elements]
+    local lastIndex = #elements
+    elements[lastIndex] = nil
+    local setsWithoutElement = Table.generateSets(elements)
+    local allSets = Table.shallowCopy(setsWithoutElement)
+
+    -- duplicate sets, but with last element this time
+    for _, setWithoutElement in ipairs(setsWithoutElement) do
+        local setWithElement = Table.shallowCopy(setWithoutElement)
+        setWithElement[lastElement] = true
+
+        -- add new set to allSets
+        allSets[#allSets + 1] = setWithElement
+    end
+
+    -- restore element to original array
+    elements[lastIndex] = lastElement
+
+    return allSets
+end
+
+function Table.generatePermutations(elements)
+    if #elements <= 1 then
+        return {elements}
+    end
+
+    -- generate permutations without last element
+    local lastElement = elements[#elements]
+    local lastIndex = #elements
+    elements[lastIndex] = nil
+    local permutationsWithoutElement = Table.generatePermutations(elements)
+
+    -- place last element at the end of each permutation
+    local permutationsWithElement = {}
+    for _, permutation in ipairs(permutationsWithoutElement) do
+        permutation[#permutation + 1] = lastElement
+        permutationsWithElement[#permutationsWithElement + 1] = permutation
+    end
+
+    -- replicate permutations, swapping the last element with each of the other ones
+    local allPermutations = Table.shallowCopy(permutationsWithElement)
+    for _, permutation in ipairs(permutationsWithElement) do
+        for elementIndex = 1, lastIndex - 1 do
+            local newPermutation = Table.shallowCopy(permutation)
+
+            -- swap elements
+            newPermutation[elementIndex], newPermutation[lastIndex] =
+                newPermutation[lastIndex],
+                newPermutation[elementIndex]
+
+            allPermutations[#allPermutations + 1] = newPermutation
+        end
+    end
+
+    -- restore element to original array
+    elements[lastIndex] = lastElement
+
+    return allPermutations
+end
+
 return Table
