@@ -57,6 +57,16 @@ function Table.toSet(t)
     return set
 end
 
+function Table.setToArray(set)
+    local array = {}
+
+    for value in pairs(set) do
+        array[#array + 1] = value
+    end
+
+    return array
+end
+
 function Table.random(t)
     local randomIndex = math.random(1, #t)
     return t[randomIndex]

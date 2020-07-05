@@ -97,6 +97,21 @@ insulate(
         )
 
         it(
+            "setToArray Set ReturnsArray",
+            function()
+                local t = {
+                    potato = true,
+                    banana = true,
+                    apple = true
+                }
+
+                local array = Table.setToArray(t)
+
+                assert.are_same({"apple", "potato", "banana"}, array)
+            end
+        )
+
+        it(
             "random RandomReturns1 ReturnsFirstElement",
             function()
                 local t = {"first", "second"}
