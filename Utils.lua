@@ -154,4 +154,8 @@ function Utils.resumeCoroutine(cor)
     end
 end
 
+function _G.math.round(x)
+    return math.floor(x + 0.5)
+end
+
 return Utils
