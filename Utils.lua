@@ -154,6 +154,21 @@ function Utils.resumeCoroutine(cor)
     end
 end
 
+function Utils.getRandomFromDistribution(distribution)
+    local count = 0
+    for _, value in pairs(distribution) do
+        count = count + value
+    end
+
+    local randomNumber = math.random() * count
+    for item, value in pairs(distribution) do
+        count = count - value
+        if count <= randomNumber then
+            return item
+        end
+    end
+end
+
 function _G.math.round(x)
     return math.floor(x + 0.5)
 end
