@@ -141,4 +141,20 @@ function Table.generatePermutations(elements)
     return allPermutations
 end
 
+function Table.filter(t, filter)
+    if not filter then
+        return Table.shallowCopy(t)
+    end
+
+    local newTable = {}
+
+    for index, value in pairs(t) do
+        if filter(value, index) then
+            newTable[#newTable + 1] = value
+        end
+    end
+
+    return newTable
+end
+
 return Table
