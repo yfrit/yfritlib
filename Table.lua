@@ -157,4 +157,20 @@ function Table.filter(t, filter)
     return newTable
 end
 
+function Table.areSame(t1, t2)
+    for index in pairs(t1) do
+        if t1[index] ~= t2[index] then
+            return false
+        end
+    end
+
+    for index in pairs(t2) do
+        if t1[index] ~= t2[index] then
+            return false
+        end
+    end
+
+    return true
+end
+
 return Table
