@@ -7,15 +7,9 @@ function Utils.isCallable(f)
     return type(f) == "function" or (metatable and metatable.__call)
 end
 
-function Utils.shuffleTable(t)
-    for i = 1, #t do
-        local j = math.random(i, #t)
-        t[i], t[j] = t[j], t[i]
-    end
-end
-
 -- TODO remove usages of deprecated Utils.shallowCopy
 Utils.shallowCopy = Table.shallowCopy
+Utils.shuffleTable = Table.shuffle
 
 local function tostring2(elem)
     if type(elem) == "string" then

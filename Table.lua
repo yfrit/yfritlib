@@ -27,6 +27,13 @@ function Table.shallowCopy(t)
     return tCopy
 end
 
+function Table.shuffle(t)
+    for i = 1, #t do
+        local j = math.random(i, #t)
+        t[i], t[j] = t[j], t[i]
+    end
+end
+
 function Table.reduce(t, callback)
     local total = t[1]
 
