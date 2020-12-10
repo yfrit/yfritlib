@@ -167,4 +167,8 @@ function _G.math.round(x)
     return math.floor(x + 0.5)
 end
 
+function _G.math.lerp(a, b, t)
+    return a * (1 - t) + b * t
+end
+
 return Utils
