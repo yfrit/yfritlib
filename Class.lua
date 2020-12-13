@@ -33,6 +33,8 @@ function Class.new(class, constructor, ...)
             {
                 __index = function(_, key)
                     --find first parent that has the key, and return its value
+                    -- TODO this has a disadvantage: it will always look in all ancestors of the first parent,
+                    -- before looking at the second parent
                     for _, parent in ipairs(parents) do
                         local value = parent[key]
                         if value then
