@@ -222,5 +222,39 @@ insulate(
                 assert.are_same({"a", "b", "c"}, elements)
             end
         )
+
+        it(
+            "isSubTableOf IsSub ReturnsTrue",
+            function()
+                local t1 = {"a", "b"}
+                local t2 = {"a", "b", "c"}
+
+                local isSubTable = Table.isSubTableOf(t1, t2)
+
+                assert.is_true(isSubTable)
+            end
+        )
+        it(
+            "isSubTableOf Reversed ReturnsFalse",
+            function()
+                local t1 = {"a", "b", "c"}
+                local t2 = {"a", "b"}
+
+                local isSubTable = Table.isSubTableOf(t1, t2)
+
+                assert.is_false(isSubTable)
+            end
+        )
+        it(
+            "isSubTableOf TotallyDifferent ReturnsFalse",
+            function()
+                local t1 = {"a", "b"}
+                local t2 = {"c", "d"}
+
+                local isSubTable = Table.isSubTableOf(t1, t2)
+
+                assert.is_false(isSubTable)
+            end
+        )
     end
 )

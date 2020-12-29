@@ -180,4 +180,22 @@ function Table.areSame(t1, t2)
     return true
 end
 
+function Table.isSubTableOf(t1, t2)
+    for index in pairs(t1) do
+        if t1[index] ~= t2[index] then
+            return false
+        end
+    end
+
+    return true
+end
+
+function Table.find(t, condition)
+    for index, value in pairs(t) do
+        if condition(value, index) then
+            return value, index
+        end
+    end
+end
+
 return Table
