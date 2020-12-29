@@ -140,6 +140,7 @@ function Utils.executeAsCoroutine(f)
     Utils.resumeCoroutine(cor)
     return cor
 end
+_G.async = Utils.executeAsCoroutine
 
 function Utils.resumeCoroutine(cor)
     local ok, errorMessage = coroutine.resume(cor)

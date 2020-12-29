@@ -1,4 +1,6 @@
 local Utils = require("YfritLib.Utils")
+local busted = require("busted")
+local assert = require("luassert.assert")
 
 function _G.magicMock()
     local __return
@@ -100,4 +102,20 @@ end
 
 function _G.unrequire(path)
     package.loaded[path] = nil
+end
+
+function _G.asyncIt(name, callback)
+    busted.it(
+        name,
+        function()
+            local done = false
+            _G.done = function()
+                done = true
+            end
+
+            callback()
+
+            assert(done, "Async test never ended.")
+        end
+    )
 end
