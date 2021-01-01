@@ -135,6 +135,39 @@ function permutations(t, min, max)
     end
 end
 
+local originalResume = coroutine.resume
+local wrappedCoroutines = {}
+
+function coroutine.resume(co, ...)
+    if wrappedCoroutines[co] then
+        co = wrappedCoroutines[co]
+    end
+    return originalResume(co, ...)
+end
+
+function _G.pcall(f, ...)
+    local co = coroutine.create(f)
+    local runningCoroutine = coroutine.running()
+    wrappedCoroutines[co] = runningCoroutine
+
+    while true do
+        local result = {originalResume(co, ...)}
+        local status = result[1]
+        table.remove(result, 1)
+
+        if coroutine.status(co) ~= "suspended" then
+            -- error or normal return
+            if runningCoroutine then
+                wrappedCoroutines[runningCoroutine] = nil
+            end
+            return status, unpack(result)
+        else
+            -- suspend across `mypcall'
+            coroutine.yield(unpack(result))
+        end
+    end
+end
+
 function Utils.executeAsCoroutine(f)
     local cor = coroutine.create(f)
     Utils.resumeCoroutine(cor)
