@@ -146,7 +146,13 @@ function coroutine.resume(co, ...)
 end
 
 function _G.pcall(f, ...)
-    local co = coroutine.create(f)
+    local co =
+        coroutine.create(
+        function(...)
+            f(...)
+        end
+    )
+
     local runningCoroutine = coroutine.running()
     wrappedCoroutines[co] = runningCoroutine
 
