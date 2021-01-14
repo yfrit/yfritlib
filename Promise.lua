@@ -20,6 +20,7 @@ function Promise:complete(...)
         self.parameters = {...}
         self.callbackList:execute(...)
     end
+    return self
 end
 
 function Promise:onComplete(callback)
