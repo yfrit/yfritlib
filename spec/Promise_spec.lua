@@ -157,5 +157,15 @@ insulate(
                 assert.stub(callback).was_called(1)
             end
         )
+        it(
+            "complete ReturnsPromise",
+            function()
+                local promise = Promise:new()
+
+                local samePromise = promise:complete()
+
+                assert.are_equal(promise, samePromise)
+            end
+        )
     end
 )
