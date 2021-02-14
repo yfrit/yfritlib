@@ -258,3 +258,24 @@ insulate(
         )
     end
 )
+
+insulate(
+    "#Table #intergration",
+    function()
+        local Table
+        setup(
+            function()
+                Table = require("Table")
+            end
+        )
+
+        it(
+            "random TableIsEmpty ReturnsNil",
+            function()
+                local value = Table.random({})
+
+                assert.is_nil(value)
+            end
+        )
+    end
+)

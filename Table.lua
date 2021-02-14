@@ -75,6 +75,10 @@ function Table.setToArray(set)
 end
 
 function Table.random(t)
+    if #t == 0 then
+        return nil
+    end
+
     local randomIndex = math.random(1, #t)
     return t[randomIndex]
 end
