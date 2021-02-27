@@ -256,6 +256,40 @@ insulate(
                 assert.is_false(isSubTable)
             end
         )
+
+        local function sortFunction(x, y)
+            return x < y
+        end
+        it(
+            "sortAndFilter NormalTable SortsAndReturnsOnlyFirstValues",
+            function()
+                local t = {"a", "b", "c", "a", "b", "c"}
+
+                local newTable = Table.sortAndFilter(t, sortFunction)
+
+                assert.are_same({"a", "a"}, newTable)
+            end
+        )
+        it(
+            "sortAndFilter SingleElementTable ReturnsTableWithFirstValue",
+            function()
+                local t = {"a"}
+
+                local newTable = Table.sortAndFilter(t, sortFunction)
+
+                assert.are_same({"a"}, newTable)
+            end
+        )
+        it(
+            "sortAndFilter EmptyTable ReturnsEmptyTable",
+            function()
+                local t = {}
+
+                local newTable = Table.sortAndFilter(t, sortFunction)
+
+                assert.are_same({}, newTable)
+            end
+        )
     end
 )
 
