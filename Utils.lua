@@ -149,7 +149,7 @@ function _G.pcall(f, ...)
     local co =
         coroutine.create(
         function(...)
-            f(...)
+            return f(...)
         end
     )
 
@@ -158,7 +158,7 @@ function _G.pcall(f, ...)
 
     while true do
         local result = {originalResume(co, ...)}
-        local status = result[1]
+        local ok = result[1]
         table.remove(result, 1)
 
         if coroutine.status(co) ~= "suspended" then
@@ -166,7 +166,12 @@ function _G.pcall(f, ...)
             if runningCoroutine then
                 wrappedCoroutines[runningCoroutine] = nil
             end
-            return status, unpack(result)
+            if ok then
+                return true, unpack(result)
+            else
+                local errorMessage = tostring(result[1]) .. "\n" .. (debug.traceback(co, result[1]) or "")
+                return false, errorMessage
+            end
         else
             -- suspend across `mypcall'
             coroutine.yield(unpack(result))
@@ -200,6 +205,16 @@ function Utils.getRandomFromDistribution(distribution)
         if count <= randomNumber then
             return item
         end
+    end
+end
+
+function Utils.pcallWrap(callback)
+    local results = {pcall(callback)}
+    local ok = table.remove(results, 1)
+    if ok then
+        return unpack(results)
+    else
+        error(results[1], 2)
     end
 end
 
