@@ -1,5 +1,5 @@
 --[[
-  Hacks a class (a.k.a. class) to debug all of its function calls.
+  Hacks a class (a.k.a. table) to debug all of its function calls.
 --]]
 local Class = require("YfritLib.Class")
 local Table = require("YfritLib.Table")
