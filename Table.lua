@@ -46,9 +46,16 @@ end
 
 function Table.map(t, callback)
     local newTable = {}
+    local callbackType = type(callback)
 
-    for key, value in pairs(t) do
-        newTable[key] = callback(value, key)
+    if callbackType == "function" then
+        for key, value in pairs(t) do
+            newTable[key] = callback(value, key)
+        end
+    elseif callbackType == "string" then
+        for key, value in pairs(t) do
+            newTable[key] = value[callback](value)
+        end
     end
 
     return newTable
