@@ -77,6 +77,27 @@ insulate(
                 assert.are_same({1 + 5, 2 + 10, 3 + 15}, t2)
             end
         )
+        it(
+            "map TableAndString UsesStringAsMethod",
+            function()
+                local function createObject(value)
+                    local self = {
+                        value = value
+                    }
+
+                    function self:getValue()
+                        return self.value
+                    end
+
+                    return self
+                end
+                local t = {createObject(5), createObject(10), createObject(15)}
+
+                local t2 = Table.map(t, "getValue")
+
+                assert.are_same({5, 10, 15}, t2)
+            end
+        )
 
         it(
             "toSet Table ConvertToSet",
