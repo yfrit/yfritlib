@@ -226,7 +226,7 @@ end
 function Table.merge(...)
     local result = {}
 
-    for _, t in pairs({...}) do
+    for _, t in ipairs({...}) do
         for index, value in pairs(t) do
             result[index] = value
         end
