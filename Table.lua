@@ -223,4 +223,16 @@ function Table.find(t, condition)
     end
 end
 
+function Table.merge(...)
+    local result = {}
+
+    for _, t in ipairs({...}) do
+        for index, value in pairs(t) do
+            result[index] = value
+        end
+    end
+
+    return result
+end
+
 return Table

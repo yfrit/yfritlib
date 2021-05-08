@@ -311,6 +311,53 @@ insulate(
                 assert.are_same({}, newTable)
             end
         )
+
+        it(
+            "merge TwoDifferentTables ReturnsMergedTable",
+            function()
+                local t1 = {
+                    potato = 1
+                }
+                local t2 = {
+                    apple = 2
+                }
+
+                local result = Table.merge(t1, t2)
+
+                assert.is_same(
+                    {
+                        potato = 1,
+                        apple = 2
+                    },
+                    result
+                )
+            end
+        )
+        it(
+            "merge ThreeDifferentTables ReturnsMergedTable",
+            function()
+                local t1 = {
+                    potato = 1
+                }
+                local t2 = {
+                    apple = 2
+                }
+                local t3 = {
+                    chocolate = 3
+                }
+
+                local result = Table.merge(t1, t2, t3)
+
+                assert.is_same(
+                    {
+                        potato = 1,
+                        apple = 2,
+                        chocolate = 3
+                    },
+                    result
+                )
+            end
+        )
     end
 )
 
