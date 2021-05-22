@@ -223,6 +223,17 @@ function Table.find(t, condition)
     end
 end
 
+function Table.remove(t, element)
+    local _, index =
+        Table.find(
+        t,
+        function(candidate)
+            return candidate == element
+        end
+    )
+    table.remove(t, index)
+end
+
 function Table.merge(...)
     local result = {}
 
