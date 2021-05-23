@@ -358,6 +358,16 @@ insulate(
                 )
             end
         )
+        it(
+            "remove Element RemovesElementFromTable",
+            function()
+                local t = {"one", "two", "three"}
+
+                Table.remove(t, "two")
+
+                assert.is_same({"one", "three"}, t)
+            end
+        )
     end
 )
 
