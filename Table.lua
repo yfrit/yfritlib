@@ -223,6 +223,15 @@ function Table.find(t, condition)
     end
 end
 
+function Table.findElement(t, element)
+    return Table.find(
+        t,
+        function(value)
+            return value == element
+        end
+    )
+end
+
 function Table.remove(t, element)
     local _, index =
         Table.find(
