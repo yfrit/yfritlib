@@ -135,50 +135,6 @@ function permutations(t, min, max)
     end
 end
 
-local originalResume = coroutine.resume
-local wrappedCoroutines = {}
-
-function coroutine.resume(co, ...)
-    if wrappedCoroutines[co] then
-        co = wrappedCoroutines[co]
-    end
-    return originalResume(co, ...)
-end
-
-function _G.pcall(f, ...)
-    local co =
-        coroutine.create(
-        function(...)
-            return f(...)
-        end
-    )
-
-    local runningCoroutine = coroutine.running()
-    wrappedCoroutines[co] = runningCoroutine
-
-    while true do
-        local result = {originalResume(co, ...)}
-        local ok = result[1]
-        table.remove(result, 1)
-
-        if coroutine.status(co) ~= "suspended" then
-            -- error or normal return
-            if runningCoroutine then
-                wrappedCoroutines[runningCoroutine] = nil
-            end
-            if ok then
-                return true, unpack(result)
-            else
-                local errorMessage = tostring(result[1]) .. "\n" .. (debug.traceback(co, result[1]) or "")
-                return false, errorMessage
-            end
-        else
-            -- suspend across `mypcall'
-            coroutine.yield(unpack(result))
-        end
-    end
-end
-
 function Utils.executeAsCoroutine(f)
     local cor = coroutine.create(f)
     Utils.resumeCoroutine(cor)
@@ -187,8 +143,18 @@ end
 _G.async = Utils.executeAsCoroutine
 
 function Utils.resumeCoroutine(cor)
-    local ok, errorMessage = coroutine.resume(cor)
-    if not ok then
+    local ok, result = coroutine.resume(cor)
+    if ok then
+        if type(result) == "function" then
+            -- if coroutine.yield sent us a function, call it!
+            result(
+                function()
+                    Utils.resumeCoroutine(cor)
+                end
+            )
+        end
+    else
+        local errorMessage = result
         error(debug.traceback(cor, errorMessage), 2)
     end
 end
