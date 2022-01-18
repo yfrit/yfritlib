@@ -19,19 +19,21 @@ local function tostring2(elem)
     end
 end
 
-function Utils.printTable(elem, hist, tabs)
+function Utils.printTable(elem, hist, tabs, accumulatedString)
     hist = hist or {}
     tabs = tabs or 0
+    accumulatedString = accumulatedString or ""
+
     if type(elem) ~= "table" then
-        print(tostring2(elem))
+        print(accumulatedString .. tostring2(elem))
     else
         if not hist[elem] then
             hist[elem] = true
-            print(tostring2(elem) .. " {")
+            print(accumulatedString .. tostring2(elem) .. " {")
             tabs = tabs + 1
             for i, e in pairs(elem) do
-                io.write(string.rep("\t", tabs) .. "[" .. tostring2(i) .. "] ")
-                printR(e, hist, tabs)
+                accumulatedString = string.rep("\t", tabs) .. "[" .. tostring2(i) .. "] "
+                printR(e, hist, tabs, accumulatedString)
             end
             tabs = tabs - 1
             print(string.rep("\t", tabs) .. "}")
