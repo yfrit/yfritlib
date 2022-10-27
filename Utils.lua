@@ -194,4 +194,11 @@ function _G.math.lerp(a, b, t)
     return a * (1 - t) + b * t
 end
 
+function _G.optionalRequire(...)
+    local ok, result = pcall(require, ...)
+    if ok then
+        return result
+    end
+end
+
 return Utils
