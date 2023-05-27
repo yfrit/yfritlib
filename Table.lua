@@ -81,6 +81,16 @@ function Table.setToArray(set)
     return array
 end
 
+function Table.swapIndexesAndValues(t)
+    local newTable = {}
+
+    for index, value in pairs(t) do
+        newTable[value] = index
+    end
+
+    return newTable
+end
+
 function Table.random(t)
     if #t == 0 then
         return nil
