@@ -27,6 +27,19 @@ function Table.shallowCopy(t)
     return tCopy
 end
 
+-- TODO detect infinite loops
+function Table.deepCopy(t)
+    local tCopy = {}
+    for i, v in pairs(t) do
+        if type(v) == "table" then
+            tCopy[i] = Table.deepCopy(v)
+        else
+            tCopy[i] = v
+        end
+    end
+    return tCopy
+end
+
 function Table.shuffle(t)
     for i = 1, #t do
         local j = math.random(i, #t)
@@ -155,9 +168,7 @@ function Table.generatePermutations(elements)
             local newPermutation = Table.shallowCopy(permutation)
 
             -- swap elements
-            newPermutation[elementIndex], newPermutation[lastIndex] =
-                newPermutation[lastIndex],
-                newPermutation[elementIndex]
+            newPermutation[elementIndex], newPermutation[lastIndex] = newPermutation[lastIndex], newPermutation[elementIndex]
 
             allPermutations[#allPermutations + 1] = newPermutation
         end
