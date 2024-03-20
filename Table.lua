@@ -276,4 +276,8 @@ function Table.merge(...)
     return result
 end
 
+function Table.getIndexLooped(t, index)
+    return t[(index - 1) % #t + 1]
+end
+
 return Table
