@@ -47,4 +47,9 @@ function Promise:await()
     return unpack(self.parameters)
 end
 
+function Promise:getResult()
+    assert(self.isCompleted, "Promise not completed yet")
+    return unpack(self.parameters)
+end
+
 return Promise
