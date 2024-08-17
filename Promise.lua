@@ -33,6 +33,14 @@ function Promise:onComplete(callback)
     end
 end
 
+function Promise:onCompleteUnreal(unrealCallback)
+    self:onComplete(
+        function()
+            UE_runCallback(unrealCallback)
+        end
+    )
+end
+
 function Promise:await()
     if not self.isCompleted then
         --only pause coroutine if promise didn't complete yet
