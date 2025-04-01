@@ -161,13 +161,15 @@ function Utils.resumeCoroutine(cor)
     end
 end
 
-function Utils.getRandomFromDistribution(distribution)
+function Utils.getRandomFromDistribution(distribution, random)
+    random = random or math.random
+
     local count = 0
     for _, value in pairs(distribution) do
         count = count + value
     end
 
-    local randomNumber = math.random() * count
+    local randomNumber = random() * count
     for item, value in pairs(distribution) do
         count = count - value
         if count <= randomNumber then

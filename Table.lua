@@ -40,9 +40,11 @@ function Table.deepCopy(t)
     return tCopy
 end
 
-function Table.shuffle(t)
+function Table.shuffle(t, random)
+    random = random or math.random
+
     for i = 1, #t do
-        local j = math.random(i, #t)
+        local j = random(i, #t)
         t[i], t[j] = t[j], t[i]
     end
 end
@@ -104,12 +106,14 @@ function Table.swapIndexesAndValues(t)
     return newTable
 end
 
-function Table.random(t)
+function Table.random(t, random)
+    random = random or math.random
+
     if #t == 0 then
         return nil
     end
 
-    local randomIndex = math.random(1, #t)
+    local randomIndex = random(1, #t)
     return t[randomIndex]
 end
 
