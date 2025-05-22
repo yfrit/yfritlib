@@ -144,6 +144,18 @@ function Utils.executeAsCoroutine(f)
 end
 _G.async = Utils.executeAsCoroutine
 
+function Utils.makeAsync(f)
+    return function(...)
+        local params = {...}
+        async(
+            function()
+                f(unpack(params))
+            end
+        )
+    end
+end
+_G.makeAsync = Utils.makeAsync
+
 function Utils.resumeCoroutine(cor)
     local ok, result = coroutine.resume(cor)
     if ok then
