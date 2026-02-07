@@ -284,4 +284,18 @@ function Table.getIndexLooped(t, index)
     return t[(index - 1) % #t + 1]
 end
 
+function Table.areArraysEqual(t1, t2)
+    if #t1 ~= #t2 then
+        return false
+    end
+
+    for index, value in ipairs(t1) do
+        if value ~= t2[index] then
+            return false
+        end
+    end
+
+    return true
+end
+
 return Table
