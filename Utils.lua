@@ -215,4 +215,8 @@ function _G.optionalRequire(...)
     end
 end
 
+function _G.unrequire(path)
+    package.loaded[path] = nil
+end
+
 return Utils
